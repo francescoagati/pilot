@@ -19,7 +19,7 @@ abstract VNodeKey(String) from String to String {
     return new VNodeKey(Std.string(value));
   } 
 
-  public function new(name:String) {
+  public inline function new(name:String) {
     this = name;
   }
 
@@ -91,7 +91,7 @@ abstract VNode(VNodeOptions) {
     return fragment(value);
   }
 
-  public function new(impl:VNodeOptions) {
+  public inline function new(impl:VNodeOptions) {
     this = impl;
     if (impl.type == null) {
       this.type = VNodeElement;

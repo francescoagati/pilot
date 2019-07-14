@@ -18,7 +18,7 @@ class StyleBuilder {
   static var registered:Bool = false;
   static var ran:Array<String> = []; 
 
-  public static function create(expr:Expr, global:Bool = false) {
+  public inline  static function create(expr:Expr, global:Bool = false) {
     if (!registered && !Context.defined('display')) {
       registered = true;
       reset();
@@ -41,7 +41,7 @@ class StyleBuilder {
     return macro $v{name};
   }
 
-  static function add(type:String, value:String) {
+  static inline  function add(type:String, value:String) {
     if (ran.indexOf(type) > -1) {
       content.set(type, [ content.get(type), value ].join('\n'));
       return;
@@ -50,11 +50,11 @@ class StyleBuilder {
     content.set(type, value);
   }
 
-  static function reset() {
+  static inline  function reset() {
     ran = [];
   }
 
-  static function parse(name:String, rules:Array<ObjectField>, global:Bool) {
+  static inline  function parse(name:String, rules:Array<ObjectField>, global:Bool) {
     var out = [];
     var subStyles = [];
     for (rule in rules) switch rule.expr.expr {
@@ -88,7 +88,7 @@ class StyleBuilder {
     ].concat(subStyles).join('\n');
   }
 
-  static function getId() {
+  static inline  function getId() {
     function rand(from:Int, to:Int):Int {
       return from + Math.floor((to - from) * Math.random());
     }
@@ -96,7 +96,7 @@ class StyleBuilder {
     return '_c_' + [ for (i in 0...20) chars.charAt(rand(0, chars.length - 1)) ].join('');
   }
 
-  static function write() {
+  static inline  function write() {
     var root = Sys.getCwd();
     var outDir = Compiler.getOutput();
     var outName:String = Context.definedValue('pilot-css');

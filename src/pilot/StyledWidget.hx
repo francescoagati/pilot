@@ -4,7 +4,7 @@ using Reflect;
 
 abstract StyledWidget(VNode) to VNode {
 
-  public function new(props:{
+  public inline function new(props:{
     compose:Array<Style>,
     child:VNode
   }) {

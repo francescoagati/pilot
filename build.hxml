@@ -2,5 +2,7 @@
 -cp example
 -dce full
 -D analyzer-optimize
+-D analyzer-module
 -main TodoApp
 -js dist/assets/app.js
+-D js-es=6

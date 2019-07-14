@@ -6,7 +6,7 @@ using StringTools;
 
 class Renderer {
   
-  public static function render(vnode:VNode) {
+  public static inline function render(vnode:VNode) {
     return switch vnode.type {
       case VNodeElement | VNodeRecycled:
         var out = '<${vnode.name}';
@@ -28,12 +28,13 @@ class Renderer {
     }
   }
 
-  static function handleAttributes(props:DynamicAccess<Dynamic>) {
-    return [ for (k => v in props) switch v {
+  static inline function handleAttributes(props:DynamicAccess<Dynamic>) {
+    var props = return [ for (k => v in props) switch v {
       case true: '${k} = "${k}"';
       case false: null;
       default: '${k} = "${Std.string(v)}"';
-    } ].filter(v -> v != null);
+    } ];
+    return [for(prop in props) if (prop != null) prop ];
   }
 
 }

@@ -12,7 +12,7 @@ class WidgetBuilder {
   static final propsMeta = [ ':prop', ':property' ];
   static final stateMeta = [ ':state' ];
 
-  public static function build(options:{ stateful:Bool }) {
+  public inline static function build(options:{ stateful:Bool }) {
     var fields = Context.getBuildFields();
     var props:Array<Field> = [];
     var constructorProps:Array<Field> = [];

@@ -14,8 +14,8 @@ using Reflect;
 **/
 class Differ {
 
-  public static function patch(node:Node, vnode:VNode) {
-    node = patchNode(
+  public static inline function patch(node:Node, vnode:VNode) {
+    node = inline patchNode(
       node,
       node,
       node.field('__vnode') != null 
@@ -28,7 +28,7 @@ class Differ {
     return vnode;
   }
 
-  static function patchNode(
+  static inline function patchNode(
     parent:Node,
     node:Node,
     oldVNode:VNode,
@@ -236,35 +236,35 @@ class Differ {
     return node;
   }
 
-  static function detachNode(parent:Node, vnode:VNode) {
+  static inline function detachNode(parent:Node, vnode:VNode) {
     doDetachHook(vnode);
     parent.removeChild(vnode.node);
   }
 
-  static function doDetachHook(vnode:VNode) {
+  static inline function doDetachHook(vnode:VNode) {
     if (vnode.hooks.detach != null) {
       vnode.hooks.detach();
     }
   }
 
-  static function doAttachHook(vnode:VNode) {
+  static inline function doAttachHook(vnode:VNode) {
     if (vnode.hooks.attach != null && vnode.node != null) {
       vnode.hooks.attach(vnode);
     }
   }
 
-  static function getKey(?vnode:VNode) {
+  static inline function getKey(?vnode:VNode) {
     return if (vnode == null) null else vnode.key; 
   }
 
-  static function merge(a:{}, b:{}):DynamicAccess<Dynamic> {
+  static inline function merge(a:{}, b:{}):DynamicAccess<Dynamic> {
     var out:DynamicAccess<Dynamic> = new DynamicAccess();
     for (k => v in (a:DynamicAccess<Dynamic>)) out.set(k, v);
     for (k => v in (b:DynamicAccess<Dynamic>)) out.set(k, v);
     return out;
   }
 
-  static function recycleNode(node:Node) {
+  static inline function recycleNode(node:Node) {
     return node.nodeType == 3
       ? VNode.text(node.nodeValue, node)
       : new VNode({
@@ -277,7 +277,7 @@ class Differ {
         });
   }
 
-  static function createNode(vnode:VNode, isSvg:Bool):Node {
+  static inline function createNode(vnode:VNode, isSvg:Bool):Node {
     var node = switch vnode.type {
       case VNodeText:
         Browser.document.createTextNode(vnode.name);
@@ -302,7 +302,7 @@ class Differ {
     return node;
   }
 
-  static function patchProperty(
+  static inline function patchProperty(
     node:Node,
     key:String,
     oldValue:Dynamic,

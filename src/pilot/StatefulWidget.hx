@@ -7,7 +7,7 @@ package pilot;
 @:autoBuild(pilot.macro.WidgetBuilder.build({ stateful: true }))
 class StatefulWidget implements Widget {
 
-  function build():VNode {
+   function build():VNode {
     return null;
   }
 
@@ -15,39 +15,39 @@ class StatefulWidget implements Widget {
     
     var _pilot_vnode:VNode;
 
-    public function render():VNode {
+     inline public function render():VNode {
       _pilot_vnode = build();
       _pilot_vnode.hooks.attach = attached;
       _pilot_vnode.hooks.detach = _pilot_detached;
       return _pilot_vnode;
     }
 
-    public function patch() {
+     public inline function patch() {
       if (_pilot_vnode == null) return;
       if (_pilot_vnode.node == null) return;
       _pilot_vnode.node.patch(render());
     }
 
-    final function _pilot_detached() {
+     final inline function _pilot_detached() {
       _pilot_vnode = null;
       detached();
-    }
+    } 
 
-    public function attached(vnode:VNode) {
+    public inline function attached(vnode:VNode) {
       // noop
     }
 
-    public function detached() {
+    public inline function detached() {
       // noop
     }
 
   #else
 
-    public function render():VNode {
+    public inline function render():VNode {
       return build();
     }
 
-    public function patch() {
+    public inline function patch() {
       // noop for now?
     }
 
